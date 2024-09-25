@@ -1,0 +1,11 @@
+<Project>
+
+  <PropertyGroup>
+
+    <Product>Atin</Product>
+    <ProductName>Atin</ProductName>
+    <Description>Alphanumeric Time Interval Notation</Description>
+
+  </PropertyGroup>
+
+</Project>
