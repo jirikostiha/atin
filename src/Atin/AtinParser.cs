@@ -1,15 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using System;
 using System.Globalization;
-using System.Linq;
 
 namespace Atin;
 
 public static class AtinParser
 {
-    private static  string _regexPattern = @"([WwDdHhMmSs])(\d+)";
+    private const string _regexPattern = @"([WwDdHhMmSs])(\d+)";
 
-    private static Regex _regex = new(_regexPattern, RegexOptions.Compiled);
+    private static readonly Regex _regex = new(_regexPattern, RegexOptions.Compiled);
 
     public static TimeSpan Parse(string input)
     {
