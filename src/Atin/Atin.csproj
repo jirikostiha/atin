@@ -5,6 +5,24 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <Product>Atin</Product>
+    <Copyright>Copyright © 2024 Jiri Kostiha</Copyright>
+    <Company />
+    <RepositoryUrl>https://github.com/jirikostiha/atin</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <Title>Atin</Title>
+    <Description>Alphanumeric Time Interval Notation (ATIN).</Description>
+    <PackageTags>time; csharp</PackageTags>
+    <PackageProjectUrl>https://github.com/jirikostiha/atin</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>True</SignAssembly>
+    <Version>1.0.0</Version>
+    <Authors>Jiri Kostiha</Authors>
+    <AssemblyOriginatorKeyFile>.\..\ijkdata.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
 </Project>
