@@ -111,7 +111,7 @@ public class AtinParserTests
     }
 
     [Fact]
-    public void TryParse_InvalidTimeFrame_Exception()
+    public void TryParse_InvalidTimeFrame_False()
     {
         string input = "X1";
 
@@ -119,7 +119,7 @@ public class AtinParserTests
     }
 
     [Fact]
-    public void TryParse_InvalidFormat_Exception()
+    public void TryParse_InvalidFormat_False()
     {
         string input = "W2H";
 
