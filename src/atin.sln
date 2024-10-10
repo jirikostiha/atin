@@ -26,10 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
-		..\organization.props = ..\organization.props
-		..\participants.props = ..\participants.props
-		..\product.props = ..\product.props
-		..\product_version.props = ..\product_version.props
 	EndProjectSection
 EndProject
 Global
