@@ -31,4 +31,37 @@ public class TimeSpanExtensionsTests
 
         Assert.Equal("M10", result);
     }
+
+    [Fact]
+    public void RoundTo_M5()
+    {
+        var subInterval = TimeSpan.FromMinutes(5);
+        var totalInterval = new TimeSpan(5, 12, 45);
+
+        var result = totalInterval.RoundTo(subInterval);
+
+        Assert.Equal(new TimeSpan(5, 15, 00), result);
+    }
+
+    [Fact]
+    public void RoundDown_M5()
+    {
+        var subInterval = TimeSpan.FromMinutes(5);
+        var totalInterval = new TimeSpan(5, 12, 45);
+
+        var result = totalInterval.RoundDown(subInterval);
+
+        Assert.Equal(new TimeSpan(5, 10, 00), result);
+    }
+
+    [Fact]
+    public void RoundUp_M5()
+    {
+        var subInterval = TimeSpan.FromMinutes(5);
+        var totalInterval = new TimeSpan(5, 12, 45);
+
+        var result = totalInterval.RoundUp(subInterval);
+
+        Assert.Equal(new TimeSpan(5, 15, 00), result);
+    }
 }

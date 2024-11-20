@@ -66,4 +66,40 @@ public static class TimeSpanExtensions
 
         return result.ToString();
     }
+
+    /// <summary>
+    /// Rounds the <see cref="TimeSpan"/> value to the nearest interval.
+    /// </summary>
+    /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
+    /// <param name="subInterval">The interval to which the value should be rounded.</param>
+    /// <returns>The rounded <see cref="TimeSpan"/>.</returns>
+    public static TimeSpan RoundTo(this TimeSpan timeSpan, TimeSpan subInterval)
+    {
+        long ticks = (timeSpan.Ticks + subInterval.Ticks / 2) / subInterval.Ticks * subInterval.Ticks;
+        return TimeSpan.FromTicks(ticks);
+    }
+
+    /// <summary>
+    /// Rounds the <see cref="TimeSpan"/> value down to the nearest interval.
+    /// </summary>
+    /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
+    /// <param name="subInterval">The interval to which the value should be rounded down.</param>
+    /// <returns>The rounded-down <see cref="TimeSpan"/>.</returns>
+    public static TimeSpan RoundDown(this TimeSpan timeSpan, TimeSpan subInterval)
+    {
+        long ticks = timeSpan.Ticks / subInterval.Ticks * subInterval.Ticks;
+        return TimeSpan.FromTicks(ticks);
+    }
+
+    /// <summary>
+    /// Rounds the <see cref="TimeSpan"/> value up to the nearest interval.
+    /// </summary>
+    /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
+    /// <param name="subInterval">The interval to which the value should be rounded up.</param>
+    /// <returns>The rounded-up <see cref="TimeSpan"/>.</returns>
+    public static TimeSpan RoundUp(this TimeSpan timeSpan, TimeSpan subInterval)
+    {
+        long ticks = (timeSpan.Ticks + subInterval.Ticks - 1) / subInterval.Ticks * subInterval.Ticks;
+        return TimeSpan.FromTicks(ticks);
+    }
 }
