@@ -124,9 +124,8 @@ public static class AtinParser
             foreach (Match match in matches)
             {
                 string unit = match.Groups[1].Value;
-                int quantity;
 
-                if (!int.TryParse(match.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out quantity))
+                if (!int.TryParse(match.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quantity))
                 {
                     result = TimeSpan.Zero;
                     return false;
