@@ -24,8 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{BCFDCDFF-B45
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{B9FD3BAB-6012-4842-BF9B-37B2F76E925B}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
+		directory.build.props = directory.build.props
+		..\LICENSE = ..\LICENSE
 	EndProjectSection
 EndProject
 Global
