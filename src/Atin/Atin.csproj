@@ -22,6 +22,7 @@
     <SignAssembly>True</SignAssembly>
     <Version>1.1.0</Version>
     <Authors>Jiri Kostiha</Authors>
+    <PackageReadmeFile>..\..\readme.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>.\..\ijkdata.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
