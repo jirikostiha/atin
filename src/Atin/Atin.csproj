@@ -24,6 +24,15 @@
     <Authors>Jiri Kostiha</Authors>
     <PackageReadmeFile>..\..\readme.md</PackageReadmeFile>
     <AssemblyOriginatorKeyFile>.\..\ijkdata.snk</AssemblyOriginatorKeyFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\readme.md">
+      <Link>readme.md</Link>
+      <Pack>true</Pack>
+      <PackagePath>readme.md</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
