@@ -23,6 +23,7 @@ This project provides utilities for parsing and formatting alphanumeric time int
 The following example shows how to use the `AtinParser.Parse` method to convert a formatted string into a `TimeSpan` object.
 
 ```csharp
+  Console.WriteLine(AtinParser.Parse("H2")); // Output: 02:00:00
   Console.WriteLine(AtinParser.Parse("W1D2H3M4S5")); // Output: 9.03:04:05
 ```
 
@@ -31,12 +32,9 @@ The following example shows how to use the `AtinParser.Parse` method to convert 
 Use the `ToAtin` extension method to convert a `TimeSpan` object into an "Atin"-formatted string.
 
 ```csharp
+  Console.WriteLine(TimeSpan.FromHours(2).ToAtin()); // Output: H2
   Console.WriteLine(new TimeSpan(9, 3, 4, 5).ToAtin()); // Output: W1D2H3M4S5
 ```
-
-## Contributing
-
-Feel free to submit issues or pull requests. All contributions are welcome!
 
 ## License
 
