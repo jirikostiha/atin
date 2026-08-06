@@ -1,94 +1,42 @@
-﻿using System.Text.RegularExpressions;
 using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Atin;
 
 /// <summary>
-/// A static class that provides methods to parse time span input strings.
+/// Parses alphanumeric time interval notation (e.g. "W1D2H3M4S5") into <see cref="TimeSpan"/>.
 /// </summary>
 public static class AtinParser
 {
-    /// <summary>
-    /// Regular expression pattern used to match time units (W, D, H, M, S) and corresponding quantities.
-    /// </summary>
-    private const string _regexPattern = @"([WwDdHhMmSs])(\d+)";
+    private const string RegexPattern = @"([WwDdHhMmSs])(\d+)";
+
+    private static readonly Regex Regex = new(RegexPattern, RegexOptions.Compiled);
 
     /// <summary>
-    /// Compiled regular expression based on the <see cref="_regexPattern"/>.
+    /// Parses a time string and returns the equivalent <see cref="TimeSpan"/>.
     /// </summary>
-    private static readonly Regex _regex = new(_regexPattern, RegexOptions.Compiled);
-
-    /// <summary>
-    /// Parses a time string and returns the equivalent <see cref="TimeSpan"/> object.
-    /// </summary>
-    /// <param name="input">A string representing time intervals (e.g., "2W3D4H").</param>
+    /// <param name="input">A string representing time intervals (e.g. "W2D3H4").</param>
     /// <returns>A <see cref="TimeSpan"/> representing the total time.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when the input is null.</exception>
-    /// <exception cref="ArgumentException">Thrown when the input format is invalid or the last character is not a digit.</exception>
+    /// <exception cref="ArgumentNullException">The input is null.</exception>
+    /// <exception cref="ArgumentException">The input format is invalid.</exception>
     public static TimeSpan Parse(string input)
     {
         if (input is null)
-        {
             throw new ArgumentNullException(nameof(input));
-        }
 
-        if (input == string.Empty)
-        {
-            return TimeSpan.Zero;
-        }
-
-        if (!char.IsDigit(input[input.Length - 1]))
-        {
-            throw new ArgumentException("The last character of the input must be a digit.");
-        }
-
-        var matches = _regex.Matches(input);
-
-        if (matches.Count == 0)
-        {
-            throw new ArgumentException("Input format is invalid.");
-        }
-
-        int totalSeconds = 0;
-
-        foreach (Match match in matches)
-        {
-            string unit = match.Groups[1].Value;
-            int quantity = int.Parse(match.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture);
-
-            switch (unit)
-            {
-                case "W":
-                    totalSeconds += quantity * 604800; // Convert weeks to seconds (7 days)
-                    break;
-                case "D":
-                    totalSeconds += quantity * 86400;  // Convert days to seconds (24 hours)
-                    break;
-                case "H":
-                    totalSeconds += quantity * 3600;   // Convert hours to seconds (60 minutes)
-                    break;
-                case "M":
-                    totalSeconds += quantity * 60;    // Convert minutes to seconds
-                    break;
-                case "S":
-                    totalSeconds += quantity;         // Seconds
-                    break;
-                default:
-                    throw new ArgumentException($"Invalid time unit: {unit}");
-            }
-        }
-
-        return TimeSpan.FromSeconds(totalSeconds);
+        return TryParseCore(input, throwOnError: true, out var result)
+            ? result
+            : throw new ArgumentException("Input format is invalid.", nameof(input));
     }
 
     /// <summary>
-    /// Tries to parse the time string and returns a boolean indicating success or failure.
+    /// Tries to parse the time string.
     /// </summary>
-    /// <param name="input">A string representing time intervals (e.g., "2W3D4H").</param>
-    /// <param name="result">The output <see cref="TimeSpan"/> if parsing succeeds.</param>
-    /// <returns><c>true</c> if the input string was successfully parsed; otherwise, <c>false</c>.</returns>
-    public static bool TryParse(string input, out TimeSpan result)
+    /// <param name="input">A string representing time intervals (e.g. "W2D3H4").</param>
+    /// <param name="result">The output <see cref="TimeSpan"/> if parsing succeeds; otherwise <see cref="TimeSpan.Zero"/>.</param>
+    /// <returns><c>true</c> if the input string was successfully parsed; otherwise <c>false</c>.</returns>
+    public static bool TryParse(string? input, out TimeSpan result)
     {
         if (input is null)
         {
@@ -96,71 +44,55 @@ public static class AtinParser
             return false;
         }
 
-        if (input == string.Empty)
-        {
-            result = TimeSpan.Zero;
+        return TryParseCore(input, throwOnError: false, out result);
+    }
+
+    private static bool TryParseCore(string input, bool throwOnError, out TimeSpan result)
+    {
+        result = TimeSpan.Zero;
+
+        if (input.Length == 0)
             return true;
-        }
 
         if (!char.IsDigit(input[input.Length - 1]))
         {
-            result = TimeSpan.Zero;
+            if (throwOnError)
+                throw new ArgumentException("The last character of the input must be a digit.", nameof(input));
             return false;
         }
 
-        result = TimeSpan.Zero;
+        var matches = Regex.Matches(input);
+        if (matches.Count == 0)
+            return false;
 
-        try
+        long totalSeconds = 0;
+        foreach (Match match in matches)
         {
-            var matches = _regex.Matches(input);
+            if (!int.TryParse(match.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quantity))
+                return false;
 
-            if (matches.Count == 0)
+            var unit = match.Groups[1].Value[0];
+            var unitSeconds = unit switch
             {
+                'W' or 'w' => 604800L,
+                'D' or 'd' => 86400L,
+                'H' or 'h' => 3600L,
+                'M' or 'm' => 60L,
+                'S' or 's' => 1L,
+                _ => -1L,
+            };
+
+            if (unitSeconds < 0)
+            {
+                if (throwOnError)
+                    throw new ArgumentException($"Invalid time unit: {unit}", nameof(input));
                 return false;
             }
 
-            int totalSeconds = 0;
-
-            foreach (Match match in matches)
-            {
-                string unit = match.Groups[1].Value;
-
-                if (!int.TryParse(match.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var quantity))
-                {
-                    result = TimeSpan.Zero;
-                    return false;
-                }
-
-                switch (unit)
-                {
-                    case "W":
-                        totalSeconds += quantity * 604800; // Convert weeks to seconds (7 days)
-                        break;
-                    case "D":
-                        totalSeconds += quantity * 86400;  // Convert days to seconds (24 hours)
-                        break;
-                    case "H":
-                        totalSeconds += quantity * 3600;   // Convert hours to seconds (60 minutes)
-                        break;
-                    case "M":
-                        totalSeconds += quantity * 60;    // Convert minutes to seconds
-                        break;
-                    case "S":
-                        totalSeconds += quantity;         // Seconds
-                        break;
-                    default:
-                        result = TimeSpan.Zero;
-                        return false; // Invalid time unit
-                }
-            }
-
-            result = TimeSpan.FromSeconds(totalSeconds);
-            return true;
+            totalSeconds += quantity * unitSeconds;
         }
-        catch
-        {
-            result = TimeSpan.Zero;
-            return false;
-        }
+
+        result = TimeSpan.FromSeconds(totalSeconds);
+        return true;
     }
 }
