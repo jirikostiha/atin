@@ -18,7 +18,7 @@
     <File Path="../LICENSE" />
     <File Path="../global.json" />
     <File Path=".editorconfig" />
-    <File Path="directory.build.props" />
+    <File Path="Directory.Build.props" />
   </Folder>
   <Project Path="Atin/Atin.csproj" />
   <Project Path="Atin.Tests/Atin.Tests.csproj" />
