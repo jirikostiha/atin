@@ -31,10 +31,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
@@ -51,7 +51,7 @@ jobs:
         run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
 
       - name: Test Report
-        uses: dorny/test-reporter@v2
+        uses: dorny/test-reporter@v3
         if: always()
         with:
           name: Tests
@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: "**/coverage.cobertura.xml"
