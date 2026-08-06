@@ -13,6 +13,9 @@ on:
         description: 'Tag'
         required: true
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -29,13 +32,12 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
-
-      - name: Publish
-        run: dotnet publish "${{ env.sln-path }}" -c Release
+          dotnet-version: |
+            8.0.x
+            9.0.x
 
       - name: Pack
-        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" --no-build
+        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" -p:ContinuousIntegrationBuild=true
 
       - name: Publish to Nuget.org
-        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate

@@ -1,4 +1,4 @@
-name: Build # integration build
+name: Build
 
 env:
   sln-path: "./src/atin.sln"
@@ -6,9 +6,24 @@ env:
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     paths:
       - 'src/**'
-      - '!src/**.sln' # ignore sln changes
+      - '!src/**.sln'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - '!src/**.sln'
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
@@ -19,9 +34,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            9.0.x
 
       - name: .NET Info
         run: dotnet --info
@@ -30,16 +47,24 @@ jobs:
         run: dotnet restore "${{ env.sln-path }}"
 
       - name: Build debug
-        run: dotnet build "${{ env.sln-path }}" --no-restore -c Debug
+        run: dotnet build "${{ env.sln-path }}" --no-restore -c Debug -p:ContinuousIntegrationBuild=true
 
       - name: Test
-        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: always()
         with:
-          name: Tests ${{ matrix.dotnet-version }}
+          name: Tests
           path: "**/test-results.trx"
           reporter: dotnet-trx
           fail-on-error: true
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: "**/coverage.cobertura.xml"
+          retention-days: 7
