@@ -9,9 +9,8 @@ namespace Atin;
 /// </summary>
 public static class AtinParser
 {
-    private const string RegexPattern = @"([WwDdHhMmSs])(\d+)";
-
-    private static readonly Regex Regex = new(RegexPattern, RegexOptions.Compiled);
+    // Matches a unit letter (W/D/H/M/S, case-insensitive) followed by its digits.
+    private static readonly Regex _regex = new(@"([WwDdHhMmSs])(\d+)", RegexOptions.Compiled);
 
     /// <summary>
     /// Parses a time string and returns the equivalent <see cref="TimeSpan"/>.
@@ -61,7 +60,7 @@ public static class AtinParser
             return false;
         }
 
-        var matches = Regex.Matches(input);
+        var matches = _regex.Matches(input);
         if (matches.Count == 0)
             return false;
 
