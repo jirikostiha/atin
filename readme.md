@@ -10,9 +10,9 @@
 
 `Atin` is a small .NET library for parsing and formatting alphanumeric time intervals such as `D1`, `H3`, `M5`, `W2H1S10`.
 
-## Target frameworks
+## Target framework
 
-The library multi-targets `netstandard2.0`, `net8.0`, and `net9.0`.
+The library targets `netstandard2.0`, so it can be consumed from .NET Framework, .NET Core, and modern .NET alike.
 
 ## Features
 
