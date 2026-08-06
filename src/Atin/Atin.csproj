@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>true</IsPackable>
-    <IsTrimmable Condition="'$(TargetFramework)' != 'netstandard2.0'">true</IsTrimmable>
 
     <Product>Atin</Product>
     <Title>Atin</Title>
     <Description>Alphanumeric Time Interval Notation (ATIN).</Description>
     <Authors>Jiri Kostiha</Authors>
     <Copyright>Copyright © 2024-2026 Jiri Kostiha</Copyright>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
 
     <RepositoryUrl>https://github.com/jirikostiha/atin</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
