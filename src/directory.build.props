@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<!-- Common properties -->
-	<PropertyGroup>
-		<!-- SolutionDir is not defined when building projects explicitly -->
-		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), MySolution.sln))\</SolutionDir>
-		<!-- Output paths -->
-		<BaseOutputPath>..\..\asm\$(MSBuildProjectName)\bin\</BaseOutputPath>
-		<BaseIntermediateOutputPath>..\..\asm\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
-		<Deterministic>true</Deterministic>
-	</PropertyGroup>
+<Project>
+  <PropertyGroup>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), atin.sln))\</SolutionDir>
+
+    <BaseOutputPath>..\..\asm\$(MSBuildProjectName)\bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>..\..\asm\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
+
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
 </Project>
