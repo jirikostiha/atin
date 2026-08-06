@@ -2,24 +2,19 @@ name: Code Lint
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches: [ main ]
-    paths:
-      - '**.cs'
-      - '**.csproj'
-      - '**.props'
-      - '.editorconfig'
 
 concurrency:
   group: lint-code-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  format:
-    name: dotnet format --verify-no-changes
+  run-linters:
+    name: Run source code linters
     runs-on: ubuntu-latest
 
     steps:
@@ -31,5 +26,12 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Verify formatting
-        run: dotnet format ./src/atin.slnx --verify-no-changes --severity info
+      - name: Run code linters with auto fix
+        uses: wearerequired/lint-action@v3
+        with:
+          commit_message: "style: code style issues with ${linter}"
+          dotnet_format: true
+          dotnet_format_dir: src
+          dotnet_format_auto_fix: true
+          auto_fix: true
+          git_name: "C# linter"

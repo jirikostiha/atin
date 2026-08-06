@@ -19,9 +19,10 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: production
     permissions:
-      packages: write
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout
@@ -34,8 +35,17 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Publish
+        run: dotnet publish "${{ env.sln-path }}" -c Release -p:ContinuousIntegrationBuild=true
+
       - name: Pack
-        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" -p:ContinuousIntegrationBuild=true
+        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" --no-build -p:ContinuousIntegrationBuild=true
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: jiri
 
       - name: Publish to Nuget.org
-        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
