@@ -1,7 +1,7 @@
 name: Publish
 
 env:
-  sln-path: "./src/atin.sln"
+  sln-path: "./src/atin.slnx"
   package-dir: "packages"
 
 on:

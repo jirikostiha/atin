@@ -79,6 +79,7 @@
 *.dbproj text merge=union
 *.props  text merge=union
 *.sln    text merge=union eol=crlf
+*.slnx   text eol=crlf
 
 # Images
 *.bmp  binary

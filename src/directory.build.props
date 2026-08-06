@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), atin.sln))\</SolutionDir>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), atin.slnx))\</SolutionDir>
 
     <BaseOutputPath>..\..\asm\$(MSBuildProjectName)\bin\</BaseOutputPath>
     <BaseIntermediateOutputPath>..\..\asm\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>

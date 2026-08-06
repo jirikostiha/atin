@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/ci/">
+    <File Path="../.github/dependabot.yml" />
+    <File Path="../.github/workflows/build.yml" />
+    <File Path="../.github/workflows/clean-history.yml" />
+    <File Path="../.github/workflows/lint-code.yml" />
+    <File Path="../.github/workflows/lint-commit.yml" />
+    <File Path="../.github/workflows/publish.yml" />
+    <File Path="../.github/workflows/release.yml" />
+  </Folder>
+  <Folder Name="/doc/">
+    <File Path="../readme.md" />
+  </Folder>
+  <Folder Name="/solution items/">
+    <File Path="../.editorconfig" />
+    <File Path="../.gitattributes" />
+    <File Path="../.gitignore" />
+    <File Path="../LICENSE" />
+    <File Path="../global.json" />
+    <File Path=".editorconfig" />
+    <File Path="directory.build.props" />
+  </Folder>
+  <Project Path="Atin/Atin.csproj" />
+  <Project Path="Atin.Tests/Atin.Tests.csproj" />
+</Solution>

@@ -1,7 +1,7 @@
 name: Release
 
 env:
-  sln-path: "./src/atin.sln"
+  sln-path: "./src/atin.slnx"
   build-dir: "build"
 
 on:
