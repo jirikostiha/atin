@@ -1,41 +1,57 @@
-# Alphanumeric Time Interval Notation (ATIN)  
+# Alphanumeric Time Interval Notation (ATIN)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/atin)
-![GitHub code size](https://img.shields.io/github/languages/code-size/jirikostiha/atin)  
 [![Build](https://github.com/jirikostiha/atin/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/build.yml)
 [![Code Lint](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/atin)
+![GitHub code size](https://img.shields.io/github/languages/code-size/jirikostiha/atin)
 
 ## Overview
 
-This project provides utilities for parsing and formatting alphanumeric time intervals like D1, H3, M5, W2H1S10.  
+`Atin` is a small .NET library for parsing and formatting alphanumeric time intervals such as `D1`, `H3`, `M5`, `W2H1S10`.
 
+## Target frameworks
+
+The library multi-targets `netstandard2.0`, `net8.0`, and `net9.0`.
 
 ## Features
 
-- **Parse Atin format to TimeSpan**: The `AtinParser.Parse` method converts a string representation of a time span (weeks, days, hours, minutes, seconds) into a `TimeSpan` object.
-- **Format TimeSpan to Atin**: The `ToAtin` extension method converts a `TimeSpan` object into a string using the "Atin" format.
-
+- **Parse ATIN to `TimeSpan`** — `AtinParser.Parse` / `AtinParser.TryParse` convert a string representation (weeks, days, hours, minutes, seconds) into a `TimeSpan`.
+- **Format `TimeSpan` to ATIN** — the `ToAtin` extension method converts a `TimeSpan` into the ATIN string form.
+- **Rounding helpers** — `RoundTo` / `RoundDown` / `RoundUp` extensions on `TimeSpan` and `DateTimeOffset`.
 
 ## Example Usage
 
-### Parsing a TimeSpan from a string
-
-The following example shows how to use the `AtinParser.Parse` method to convert a formatted string into a `TimeSpan` object.
+### Parse
 
 ```csharp
-  Console.WriteLine(AtinParser.Parse("H2")); // Output: 02:00:00
-  Console.WriteLine(AtinParser.Parse("W1D2H3M4S5")); // Output: 9.03:04:05
+Console.WriteLine(AtinParser.Parse("H2"));           // Output: 02:00:00
+Console.WriteLine(AtinParser.Parse("W1D2H3M4S5"));   // Output: 9.03:04:05
+
+if (AtinParser.TryParse("D3H4", out var ts))
+{
+    Console.WriteLine(ts); // 3.04:00:00
+}
 ```
 
-### Formatting a TimeSpan to Atin format
-
-Use the `ToAtin` extension method to convert a `TimeSpan` object into an "Atin"-formatted string.
+### Format
 
 ```csharp
-  Console.WriteLine(TimeSpan.FromHours(2).ToAtin()); // Output: H2
-  Console.WriteLine(new TimeSpan(9, 3, 4, 5).ToAtin()); // Output: W1D2H3M4S5
+Console.WriteLine(TimeSpan.FromHours(2).ToAtin());     // Output: H2
+Console.WriteLine(new TimeSpan(9, 3, 4, 5).ToAtin());  // Output: W1D2H3M4S5
+```
+
+### Round
+
+```csharp
+var five = TimeSpan.FromMinutes(5);
+var ts   = new TimeSpan(5, 12, 45);
+
+ts.RoundTo(five);   // 05:15:00
+ts.RoundDown(five); // 05:10:00
+ts.RoundUp(five);   // 05:15:00
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT — see the [LICENSE](LICENSE) file.
