@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/Atin/icon.png" alt="ATIN" width="50"/>
+</p>
+
 # Alphanumeric Time Interval Notation (ATIN)
 
 [![Build](https://github.com/jirikostiha/atin/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/build.yml)
