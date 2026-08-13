@@ -4,11 +4,11 @@
 
 # Alphanumeric Time Interval Notation (ATIN)
 
-[![Build](https://github.com/jirikostiha/atin/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/build.yml)
-[![Code Lint](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/atin)
 ![GitHub code size](https://img.shields.io/github/languages/code-size/jirikostiha/atin)
+![Nuget](https://img.shields.io/nuget/dt/Atin)  
+[![Build](https://github.com/jirikostiha/atin/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/build.yml)
+[![Code Lint](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml)
 
 ## Overview
 
