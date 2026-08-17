@@ -88,3 +88,9 @@ jobs:
           delete_tags: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish Packages
+    needs: [ release ]
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit

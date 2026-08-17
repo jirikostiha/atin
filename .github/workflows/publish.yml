@@ -5,6 +5,7 @@ env:
   package-dir: "packages"
 
 on:
+  workflow_call:
   release:
     types: [published]
   workflow_dispatch:
@@ -28,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.tag }}
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
