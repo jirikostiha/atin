@@ -22,7 +22,7 @@ jobs:
       dotnet-version: "10.0.x"
       ref: ${{ inputs.tag || github.ref_name }}
       artifacts: true
-      binaries-path: src/Atin/bin
+      binaries-path: artf/Atin/bin
 
   release:
     needs: build
