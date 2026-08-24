@@ -33,6 +33,7 @@ jobs:
       id-token: write
     with:
       include-benchmarks: false
+      version: ${{ inputs.tag || github.ref_name }}
 
   release:
     needs: build
