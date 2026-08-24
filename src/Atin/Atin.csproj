@@ -18,7 +18,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
 
     <PackageTags>time;timespan;interval;parser;csharp</PackageTags>
-    <PackageProjectUrl>https://github.com/jirikostiha/atin</PackageProjectUrl>
+    <PackageProjectUrl>https://jirikostiha.github.io/atin/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>

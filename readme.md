@@ -9,10 +9,15 @@
 ![Nuget](https://img.shields.io/nuget/dt/Atin)  
 [![Build](https://github.com/jirikostiha/atin/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/build.yml)
 [![Code Lint](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/atin/actions/workflows/lint-code.yml)
+[![Documentation](https://img.shields.io/badge/docs-DocFX-blue.svg)](https://jirikostiha.github.io/atin/)
 
 ## Overview
 
 `Atin` is a small .NET library for parsing and formatting alphanumeric time intervals such as `D1`, `H3`, `M5`, `W2H1S10`.
+
+## Documentation
+
+Full API reference and guides are available on the [Documentation Website](https://jirikostiha.github.io/atin/).
 
 ## Target framework
 
