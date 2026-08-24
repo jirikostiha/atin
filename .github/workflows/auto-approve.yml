@@ -4,16 +4,10 @@ on:
   pull_request_target:
     types: [opened, synchronize, reopened]
 
-permissions:
-  pull-requests: write
-
 jobs:
   auto-approve:
-    runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]' || github.actor == 'Lint Action'
-
-    steps:
-      - name: Approve
-        uses: hmarr/auto-approve-action@v4
-        with:
-          review-message: "Auto approved PR"
+    uses: jirikostiha/ci/.github/workflows/auto-approve.yml@v1
+    permissions:
+      pull-requests: write
+    with:
+      actors: "dependabot[bot],github-actions[bot]"

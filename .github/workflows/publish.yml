@@ -1,9 +1,5 @@
 name: Publish
 
-env:
-  sln-path: "./src/atin.slnx"
-  package-dir: "packages"
-
 on:
   workflow_call:
   release:
@@ -11,42 +7,28 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag'
+        description: "Tag to build and publish"
         required: true
 
-permissions:
-  contents: read
-
 jobs:
+  build:
+    uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
+    permissions:
+      contents: read
+      checks: write
+    with:
+      solution: ./src/atin.slnx
+      configuration: Release
+      dotnet-version: "10.0.x"
+      ref: ${{ inputs.tag || github.ref }}
+      artifacts: true
+      binaries-path: src/Atin/bin
+
   publish:
-    runs-on: ubuntu-latest
-    environment: production
+    needs: build
+    uses: jirikostiha/ci/.github/workflows/nuget-publish.yml@v1
     permissions:
       contents: read
       id-token: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.tag || github.ref }}
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Publish
-        run: dotnet publish "${{ env.sln-path }}" -c Release -p:ContinuousIntegrationBuild=true
-
-      - name: Pack
-        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" --no-build -p:ContinuousIntegrationBuild=true
-
-      - name: NuGet login (OIDC)
-        uses: NuGet/login@v1
-        id: login
-        with:
-          user: jiri
-
-      - name: Publish to Nuget.org
-        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    with:
+      user: jiri

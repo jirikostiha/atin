@@ -1,68 +1,35 @@
 name: Build
 
-env:
-  sln-path: "./src/atin.slnx"
-
 on:
   workflow_dispatch:
+    inputs:
+      configuration:
+        description: "Build configuration"
+        type: choice
+        options: [Debug, Release]
+        default: Debug
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'src/**'
-      - '!src/**.slnx'
+      - "src/**"
+      - "!src/**.slnx"
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'src/**'
-      - '!src/**.slnx'
+      - "src/**"
+      - "!src/**.slnx"
 
 concurrency:
-  group: build-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.configuration || 'Debug' }}
   cancel-in-progress: true
-
-permissions:
-  contents: read
-  checks: write
-  pull-requests: write
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: .NET Info
-        run: dotnet --info
-
-      - name: Restore dependencies
-        run: dotnet restore "${{ env.sln-path }}"
-
-      - name: Build debug
-        run: dotnet build "${{ env.sln-path }}" --no-restore -c Debug -p:ContinuousIntegrationBuild=true
-
-      - name: Test
-        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
-
-      - name: Test Report
-        uses: dorny/test-reporter@v3
-        if: always()
-        with:
-          name: Tests
-          path: "**/test-results.trx"
-          reporter: dotnet-trx
-          fail-on-error: true
-
-      - name: Upload coverage
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage
-          path: "**/coverage.cobertura.xml"
-          retention-days: 7
+    uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
+    permissions:
+      contents: read
+      checks: write
+    with:
+      solution: ./src/atin.slnx
+      configuration: ${{ inputs.configuration || 'Debug' }}
+      dotnet-version: "10.0.x"
