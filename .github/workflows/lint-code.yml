@@ -16,6 +16,7 @@ jobs:
     uses: jirikostiha/ci/.github/workflows/lint-code.yml@v1
     permissions:
       contents: write
+      checks: write
     with:
       dir: src
       dotnet-version: "10.0.x"
