@@ -10,7 +10,7 @@
     <Description>Alphanumeric Time Interval Notation (ATIN).</Description>
     <Authors>Jiri Kostiha</Authors>
     <Copyright>Copyright © 2024-2026 Jiri Kostiha</Copyright>
-    <Version>1.1.1</Version>
+    <Version>1.1.3</Version>
 
     <RepositoryUrl>https://github.com/jirikostiha/atin</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
