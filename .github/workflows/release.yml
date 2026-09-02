@@ -24,17 +24,6 @@ jobs:
       artifacts: true
       binaries-path: artf/Atin/bin
 
-  docs:
-    needs: build
-    uses: jirikostiha/ci/.github/workflows/docs.yml@v1
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    with:
-      include-benchmarks: false
-      version: ${{ inputs.tag || github.ref_name }}
-
   release:
     needs: build
     uses: jirikostiha/ci/.github/workflows/gh-release.yml@v1
@@ -42,12 +31,3 @@ jobs:
       contents: write
     with:
       tag: ${{ inputs.tag || github.ref_name }}
-
-  publish:
-    needs: [release, docs]
-    uses: jirikostiha/ci/.github/workflows/nuget-publish.yml@v1
-    permissions:
-      contents: read
-      id-token: write
-    with:
-      user: jiri
