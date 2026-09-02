@@ -5,8 +5,8 @@
     <File Path="../.github/workflows/clean-history.yml" />
     <File Path="../.github/workflows/lint-code.yml" />
     <File Path="../.github/workflows/lint-commit.yml" />
-    <File Path="../.github/workflows/publish.yml" />
-    <File Path="../.github/workflows/release.yml" />
+    <File Path="../.github/workflows/nuget-publish.yml" />
+    <File Path="../.github/workflows/github-release.yml" />
   </Folder>
   <Folder Name="/doc/">
     <File Path="../readme.md" />

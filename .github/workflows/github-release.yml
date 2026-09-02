@@ -37,17 +37,17 @@ jobs:
 
   release:
     needs: build
-    uses: jirikostiha/ci/.github/workflows/gh-release.yml@v1
+    uses: jirikostiha/ci/.github/workflows/github-release.yml@v1
     permissions:
       contents: write
     with:
       tag: ${{ inputs.tag || github.ref_name }}
 
-  # Local reusable so job_workflow_ref stays jirikostiha/atin/.github/workflows/publish.yml,
+  # Local reusable so job_workflow_ref stays jirikostiha/atin/.github/workflows/nuget-publish.yml,
   # matching the nuget.org trust policy. A cross-repo reusable would break OIDC (see PIPE-02).
   publish:
     needs: build
     permissions:
       contents: read
       id-token: write
-    uses: ./.github/workflows/publish.yml
+    uses: ./.github/workflows/nuget-publish.yml
