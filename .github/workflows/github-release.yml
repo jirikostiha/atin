@@ -42,6 +42,7 @@ jobs:
       contents: write
     with:
       tag: ${{ inputs.tag || github.ref_name }}
+      product-name: Atin
 
   # Local reusable so job_workflow_ref stays jirikostiha/atin/.github/workflows/nuget-publish.yml,
   # matching the nuget.org trust policy. A cross-repo reusable would break OIDC (see PIPE-02).
