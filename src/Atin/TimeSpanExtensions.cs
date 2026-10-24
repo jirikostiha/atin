@@ -3,9 +3,7 @@ using System.Text;
 
 namespace Atin;
 
-/// <summary>
-/// Provides extension methods for the <see cref="TimeSpan"/> class.
-/// </summary>
+/// <summary>Provides extension methods for the <see cref="TimeSpan"/> class.</summary>
 public static class TimeSpanExtensions
 {
     /// <summary>
@@ -67,9 +65,7 @@ public static class TimeSpanExtensions
         return result.ToString();
     }
 
-    /// <summary>
-    /// Rounds the <see cref="TimeSpan"/> value to the nearest interval.
-    /// </summary>
+    /// <summary>Rounds the <see cref="TimeSpan"/> value to the nearest interval.</summary>
     /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
     /// <param name="subInterval">The interval to which the value should be rounded.</param>
     /// <returns>The rounded <see cref="TimeSpan"/>.</returns>
@@ -79,9 +75,7 @@ public static class TimeSpanExtensions
         return TimeSpan.FromTicks(ticks);
     }
 
-    /// <summary>
-    /// Rounds the <see cref="TimeSpan"/> value down to the nearest interval.
-    /// </summary>
+    /// <summary>Rounds the <see cref="TimeSpan"/> value down to the nearest interval.</summary>
     /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
     /// <param name="subInterval">The interval to which the value should be rounded down.</param>
     /// <returns>The rounded-down <see cref="TimeSpan"/>.</returns>
@@ -91,9 +85,7 @@ public static class TimeSpanExtensions
         return TimeSpan.FromTicks(ticks);
     }
 
-    /// <summary>
-    /// Rounds the <see cref="TimeSpan"/> value up to the nearest interval.
-    /// </summary>
+    /// <summary>Rounds the <see cref="TimeSpan"/> value up to the nearest interval.</summary>
     /// <param name="timeSpan">The original <see cref="TimeSpan"/> to round.</param>
     /// <param name="subInterval">The interval to which the value should be rounded up.</param>
     /// <returns>The rounded-up <see cref="TimeSpan"/>.</returns>

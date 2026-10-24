@@ -4,17 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace Atin;
 
-/// <summary>
-/// Parses alphanumeric time interval notation (e.g. "W1D2H3M4S5") into <see cref="TimeSpan"/>.
-/// </summary>
+/// <summary>Parses alphanumeric time interval notation (e.g. "W1D2H3M4S5") into <see cref="TimeSpan"/>.</summary>
 public static class AtinParser
 {
     // Matches a unit letter (W/D/H/M/S, case-insensitive) followed by its digits.
     private static readonly Regex _regex = new(@"([WwDdHhMmSs])(\d+)", RegexOptions.Compiled);
 
-    /// <summary>
-    /// Parses a time string and returns the equivalent <see cref="TimeSpan"/>.
-    /// </summary>
+    /// <summary>Parses a time string and returns the equivalent <see cref="TimeSpan"/>.</summary>
     /// <param name="input">A string representing time intervals (e.g. "W2D3H4").</param>
     /// <returns>A <see cref="TimeSpan"/> representing the total time.</returns>
     /// <exception cref="ArgumentNullException">The input is null.</exception>
@@ -29,9 +25,7 @@ public static class AtinParser
             : throw new ArgumentException("Input format is invalid.", nameof(input));
     }
 
-    /// <summary>
-    /// Tries to parse the time string.
-    /// </summary>
+    /// <summary>Tries to parse the time string.</summary>
     /// <param name="input">A string representing time intervals (e.g. "W2D3H4").</param>
     /// <param name="result">The output <see cref="TimeSpan"/> if parsing succeeds; otherwise <see cref="TimeSpan.Zero"/>.</param>
     /// <returns><c>true</c> if the input string was successfully parsed; otherwise <c>false</c>.</returns>
