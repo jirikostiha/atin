@@ -63,4 +63,4 @@ ts.RoundUp(five);   // 05:15:00
 
 ## License
 
-MIT — see the [LICENSE](LICENSE) file.
+MIT with AI training restriction — see the [LICENSE](LICENSE) file.
