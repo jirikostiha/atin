@@ -63,4 +63,4 @@ ts.RoundUp(five);   // 05:15:00
 
 ## License
 
-MIT with AI training restriction — see the [LICENSE](LICENSE) file.
+[MIT NON-AI License](LICENSE) — it forbids using the project for AI training. The copyright holder reserves the right to text and data mining under Article 4(3) of Directive (EU) 2019/790.
