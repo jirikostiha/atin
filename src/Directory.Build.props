@@ -3,8 +3,8 @@
   <PropertyGroup>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), atin.slnx))\</SolutionDir>
 
-    <BaseOutputPath>..\..\artf\$(MSBuildProjectName)\bin\</BaseOutputPath>
-    <BaseIntermediateOutputPath>..\..\artf\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)..\artf\$(MSBuildProjectName)\bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\artf\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
 
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
